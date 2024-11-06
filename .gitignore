@@ -24,3 +24,6 @@ discord_bot-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Ignore all files on config folder
+config/config.exs
