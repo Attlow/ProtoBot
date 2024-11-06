@@ -1,21 +1,8 @@
 # DiscordBot
 
-**TODO: Add description**
-
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `discord_bot` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:discord_bot, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/discord_bot>.
-
+Comandos:
+!Guess {Nome} -> Retorna uma estimativa de qual país vem um nome (ex: !guess Vinicius)
+!RandomQuote -> Retorna uma frase de anime.
+!Roll {Dado} -> Rola um dado (ex: !roll 2d20).
+!Ygo {Carta} -> Retorna informações sobre uma carta de yu-gi-oh! (ex: !ygo Dark Magician).
+!Dog -> Retorna uma foto de cachorro aleatória. "# ProtoBot" 
