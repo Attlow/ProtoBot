@@ -21,6 +21,9 @@ defmodule ProtoBot do
       String.starts_with?(String.downcase(msg.content), "!dog") ->
         handle_dog(msg)
 
+      String.starts_with?(String.downcase(msg.content), "!horrormovie") ->
+        handle_movie(msg)
+
       String.starts_with?(String.downcase(msg.content), "!command") ->
         Api.create_message(msg.channel_id, """
                 !Guess
@@ -65,6 +68,12 @@ end
     get_dog_result(msg)
   end
 
+  defp handle_movie(msg) do
+    case String.split(msg.content, " ", parts: 2, trim: true) do
+      [_, name] -> get_movie_result(msg, name)
+      _ -> Api.create_message(msg.channel_id, "Insira uma id válida!")
+    end
+  end
 
   defp get_name_result(msg, name) do
     n = URI.encode(name)
@@ -163,6 +172,8 @@ end
               end
             end
           end
+
+
     defp get_dog_result(msg) do
         url = "https://dog.ceo/api/breeds/image/random"
         case HTTPoison.get(url) do
@@ -172,4 +183,34 @@ end
         Api.create_message(msg.channel_id, foto)
       end
     end
+
+    defp get_movie_result(msg, name) do
+      n = URI.encode(name)
+
+      url = "http://127.0.0.1:5000/movies/#{n}"
+
+      case HTTPoison.get(url) do
+        {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+          read = Jason.decode!(body)
+
+          case read do
+            [%{
+              "name" => movieName,
+              "scarescore" => scarescore,
+              "score" => score,
+              "sustoscore" => sustoscore,
+              "img" => img,
+            }] ->
+
+              Api.create_message(msg.channel_id, """
+              Nome: #{movieName}
+              Score: #{score}
+              ScareScore: #{scarescore}
+              SustoScore: #{sustoscore}
+              Img: #{img}
+              """)
+
+            end
+          end
+        end
 end
